@@ -1,0 +1,13 @@
+module modular_exponentiation_nosm(input [31:0] base, power, denominator,
+										output logic modexp_done,
+										output logic [31:0] result);
+
+	
+	always_comb
+	begin
+		modexp_done = 1'b0;
+		if(modular_done == 1'b1)
+			modexp_done = 1'b1;
+	end
+
+endmodule 

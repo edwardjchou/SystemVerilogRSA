@@ -1,0 +1,45 @@
+module testbench_modexp();
+
+timeunit 10ns;
+
+timeprecision 1ns;
+
+logic clk = 0;
+logic reset_n = 0;
+logic modexp_ready = 0;
+logic [31:0] base, power, denominator, result;
+logic modexp_done;
+
+input clk, reset_n, modexp_ready,
+										input [31:0] base, power, denominator,
+										output logic modexp_done,
+										output logic [31:0] result
+
+modular_exponentiation modexp0(.*);
+								
+always begin : CLOCK_GENERATION
+#1 clk = ~clk;
+
+end
+
+initial begin: CLOCK_INITIALIZATION
+	clk = 0;
+end
+
+//21^5 = 4084101
+//4084101 mod 273 = 21
+initial begin: TEST_VECTORS
+#10 reset_n = 1'b0;
+#10 reset_n = 1'b1;
+
+#10 base = 32'd21;
+#10 power = 32'd5;
+#10 denominator = 32'd273;
+#10 modular_ready = 1'b1;
+
+
+end					
+					
+					
+				
+endmodule

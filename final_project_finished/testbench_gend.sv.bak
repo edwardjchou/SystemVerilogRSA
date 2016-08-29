@@ -1,0 +1,53 @@
+module testbench_gend();
+
+timeunit 10ns;
+
+timeprecision 1ns;
+
+logic clk = 0;
+logic reset_n = 0;
+logic compute = 0;
+logic [31:0] e, phi;
+
+logic [10:0]i;
+logic [31:0] d;
+
+generate_d(.clk(clk), 
+				.reset_n(reset_n), 
+				.compute(compute),
+				.e(107), 
+				.phi(22908),
+				.d(d));
+
+								
+always begin : CLOCK_GENERATION
+#1 clk = ~clk;
+
+end
+
+initial begin: CLOCK_INITIALIZATION
+	clk = 0;
+end
+
+
+initial begin: TEST_VECTORS
+#10 reset_n = 1'b0;
+#10 reset_n = 1'b1;
+/*
+#10 i = 11'b00000101111;
+#10 i = 11'b00001100101;
+#10 i = 11'b00110011001;
+#10 i = 11'b00110011000;
+#10 i = 11'd23;
+#10 i = 11'd26;
+*/
+#10 e = 32'd107;
+#10 phi = 32'd22908;
+#10 compute = 1'b1;
+
+
+end					
+					
+					
+				
+endmodule

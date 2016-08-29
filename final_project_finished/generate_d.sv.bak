@@ -1,0 +1,83 @@
+module generate_d(input reset_n, compute,
+						input [15:0] e, phi,
+						output [15:0] d);
+
+	enum logic [2:0] {	RESET, WAIT, INIT_MODEXP, MODEXP_LOOP, DECREMENT, FINISHED
+							}
+							state, next_state;
+						
+
+	logic [15:0] s, dholder;
+	
+	modular_exponentiation me0(.base(dholder), .power(e), .denominator(phi), .result(s));
+	
+	always_ff @ (posedge clk, negedge reset_n) begin
+		if (reset_n == 1'b0) begin
+			state <= RESET;
+		end 
+		else begin
+			state <= next_state;
+		end
+	end
+
+	always_comb begin
+		next_state = state;
+		unique case (state)
+			RESET: begin
+				next_state <= WAIT;
+			end
+			
+			WAIT: begin
+				if (compute == 1'b1)
+					next_state <= INIT_MODEXP;
+			end
+			
+			INIT_MODEXP: begin
+				next_state = MODEXP_LOOP;
+			end
+			
+			MODEXP_LOOP
+				if(s != 1'd1)
+					next_state <= MODEXP_LOOP;
+				else if(s == 1'd1)
+					next_state <= DECREMENT;
+			end
+			
+			DECREMENT: begin
+				next_state <= FINISHED;
+			end
+			
+			FINISHED: begin
+				next_state <= WAIT;
+			end
+		endcase
+	end
+			
+	always_latch begin
+		unique case (state)
+			RESET: begin
+				s <= 16'd0;
+				dholder <= 16'd1;
+			end
+			
+			WAIT: begin
+			end
+			
+			INIT_MODEXP: begin
+			end
+			
+			MODEXP_LOOP
+				dholder <= dholder + 1'b1;
+			end
+			
+			DECREMENT: begin
+				dholder <= dholder - 1'b1;
+			end
+			
+			FINISHED: begin
+				d <= dholder;
+			end
+		endcase
+	end
+
+endmodule

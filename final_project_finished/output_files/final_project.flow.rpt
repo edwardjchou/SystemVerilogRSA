@@ -1,0 +1,159 @@
+Flow report for final_project
+Tue May 05 10:31:08 2015
+Quartus II 64-Bit Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Flow Summary
+  3. Flow Settings
+  4. Flow Non-Default Global Settings
+  5. Flow Elapsed Time
+  6. Flow OS Summary
+  7. Flow Log
+  8. Flow Messages
+  9. Flow Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2014 Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus II License Agreement,
+the Altera MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Altera and sold by Altera or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+
+
+
++---------------------------------------------------------------------------------+
+; Flow Summary                                                                    ;
++------------------------------------+--------------------------------------------+
+; Flow Status                        ; Successful - Tue May 05 10:31:07 2015      ;
+; Quartus II 64-Bit Version          ; 14.1.0 Build 186 12/03/2014 SJ Web Edition ;
+; Revision Name                      ; final_project                              ;
+; Top-level Entity Name              ; final_project                              ;
+; Family                             ; Cyclone IV E                               ;
+; Device                             ; EP4CE115F29C7                              ;
+; Timing Models                      ; Final                                      ;
+; Total logic elements               ; 12,107                                     ;
+;     Total combinational functions  ; 11,162                                     ;
+;     Dedicated logic registers      ; 4,298                                      ;
+; Total registers                    ; 4298                                       ;
+; Total pins                         ; 142                                        ;
+; Total virtual pins                 ; 0                                          ;
+; Total memory bits                  ; 11,392                                     ;
+; Embedded Multiplier 9-bit elements ; 0                                          ;
+; Total PLLs                         ; 1                                          ;
++------------------------------------+--------------------------------------------+
+
+
++-----------------------------------------+
+; Flow Settings                           ;
++-------------------+---------------------+
+; Option            ; Setting             ;
++-------------------+---------------------+
+; Start date & time ; 05/05/2015 10:27:46 ;
+; Main task         ; Compilation         ;
+; Revision Name     ; final_project       ;
++-------------------+---------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                                                   ;
++--------------------------------------+---------------------------------------------------------------------+---------------+-------------------+-------------------+
+; Assignment Name                      ; Value                                                               ; Default Value ; Entity Name       ; Section Id        ;
++--------------------------------------+---------------------------------------------------------------------+---------------+-------------------+-------------------+
+; COMPILER_SIGNATURE_ID                ; 110119597374515.143083966606520                                     ; --            ; --                ; --                ;
+; EDA_DESIGN_INSTANCE_NAME             ; NA                                                                  ; --            ; --                ; testbench_rsa     ;
+; EDA_DESIGN_INSTANCE_NAME             ; NA                                                                  ; --            ; --                ; testbench_gend    ;
+; EDA_DESIGN_INSTANCE_NAME             ; NA                                                                  ; --            ; --                ; testbench_decrypt ;
+; EDA_DESIGN_INSTANCE_NAME             ; NA                                                                  ; --            ; --                ; testbench_modulo  ;
+; EDA_DESIGN_INSTANCE_NAME             ; NA                                                                  ; --            ; --                ; testbench_modexp  ;
+; EDA_DESIGN_INSTANCE_NAME             ; NA                                                                  ; --            ; --                ; testbench_modmult ;
+; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; testbench_gend                                                      ; --            ; --                ; eda_simulation    ;
+; EDA_OUTPUT_DATA_FORMAT               ; Systemverilog Hdl                                                   ; --            ; --                ; eda_simulation    ;
+; EDA_SIMULATION_TOOL                  ; ModelSim-Altera (SystemVerilog)                                     ; <None>        ; --                ; --                ;
+; EDA_TEST_BENCH_ENABLE_STATUS         ; TEST_BENCH_MODE                                                     ; --            ; --                ; eda_simulation    ;
+; EDA_TEST_BENCH_FILE                  ; testbench_rsa.sv                                                    ; --            ; --                ; testbench_rsa     ;
+; EDA_TEST_BENCH_FILE                  ; testbench_gend.sv                                                   ; --            ; --                ; testbench_gend    ;
+; EDA_TEST_BENCH_FILE                  ; testbench_decrypt.sv                                                ; --            ; --                ; testbench_decrypt ;
+; EDA_TEST_BENCH_FILE                  ; testbench_modulo.sv                                                 ; --            ; --                ; testbench_modulo  ;
+; EDA_TEST_BENCH_FILE                  ; testbench_modexp.sv                                                 ; --            ; --                ; testbench_modexp  ;
+; EDA_TEST_BENCH_FILE                  ; testbench_modmult.sv                                                ; --            ; --                ; testbench_modmult ;
+; EDA_TEST_BENCH_MODULE_NAME           ; testbench_rsa                                                       ; --            ; --                ; testbench_rsa     ;
+; EDA_TEST_BENCH_MODULE_NAME           ; testbench_gend                                                      ; --            ; --                ; testbench_gend    ;
+; EDA_TEST_BENCH_MODULE_NAME           ; testbench_decrypt                                                   ; --            ; --                ; testbench_decrypt ;
+; EDA_TEST_BENCH_MODULE_NAME           ; testbench_modulo                                                    ; --            ; --                ; testbench_modulo  ;
+; EDA_TEST_BENCH_MODULE_NAME           ; testbench_modexp                                                    ; --            ; --                ; testbench_modexp  ;
+; EDA_TEST_BENCH_MODULE_NAME           ; testbench_modmult                                                   ; --            ; --                ; testbench_modmult ;
+; EDA_TEST_BENCH_NAME                  ; testbench_rsa                                                       ; --            ; --                ; eda_simulation    ;
+; EDA_TEST_BENCH_NAME                  ; testbench_gend                                                      ; --            ; --                ; eda_simulation    ;
+; EDA_TEST_BENCH_NAME                  ; testbench_decrypt                                                   ; --            ; --                ; eda_simulation    ;
+; EDA_TEST_BENCH_NAME                  ; testbench_modulo                                                    ; --            ; --                ; eda_simulation    ;
+; EDA_TEST_BENCH_NAME                  ; testbench_modexp                                                    ; --            ; --                ; eda_simulation    ;
+; EDA_TEST_BENCH_NAME                  ; testbench_modmult                                                   ; --            ; --                ; eda_simulation    ;
+; EDA_TEST_BENCH_RUN_SIM_FOR           ; 10000 ns                                                            ; --            ; --                ; testbench_rsa     ;
+; EDA_TEST_BENCH_RUN_SIM_FOR           ; 10000 ns                                                            ; --            ; --                ; testbench_gend    ;
+; EDA_TEST_BENCH_RUN_SIM_FOR           ; 10000 ns                                                            ; --            ; --                ; testbench_decrypt ;
+; EDA_TEST_BENCH_RUN_SIM_FOR           ; 10000 ns                                                            ; --            ; --                ; testbench_modulo  ;
+; EDA_TEST_BENCH_RUN_SIM_FOR           ; 100000 ns                                                           ; --            ; --                ; testbench_modexp  ;
+; EDA_TEST_BENCH_RUN_SIM_FOR           ; 10000 ns                                                            ; --            ; --                ; testbench_modmult ;
+; EDA_TIME_SCALE                       ; 1 ps                                                                ; --            ; --                ; eda_simulation    ;
+; MAX_CORE_JUNCTION_TEMP               ; 85                                                                  ; --            ; --                ; --                ;
+; MIN_CORE_JUNCTION_TEMP               ; 0                                                                   ; --            ; --                ; --                ;
+; MISC_FILE                            ; final_project_soc/synthesis/../final_project_soc.cmp                ; --            ; --                ; --                ;
+; MISC_FILE                            ; final_project_soc/synthesis/../../final_project_soc.qsys            ; --            ; --                ; --                ;
+; NOMINAL_CORE_SUPPLY_VOLTAGE          ; 1.2V                                                                ; --            ; --                ; --                ;
+; PARTITION_COLOR                      ; 16764057                                                            ; --            ; --                ; Top               ;
+; PARTITION_FITTER_PRESERVATION_LEVEL  ; PLACEMENT_AND_ROUTING                                               ; --            ; --                ; Top               ;
+; PARTITION_NETLIST_TYPE               ; SOURCE                                                              ; --            ; --                ; Top               ;
+; POWER_BOARD_THERMAL_MODEL            ; None (CONSERVATIVE)                                                 ; --            ; --                ; --                ;
+; POWER_PRESET_COOLING_SOLUTION        ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                               ; --            ; --                ; --                ;
+; PROJECT_OUTPUT_DIRECTORY             ; output_files                                                        ; --            ; --                ; --                ;
+; SLD_FILE                             ; final_project_soc/synthesis/final_project_soc.regmap                ; --            ; --                ; --                ;
+; SLD_FILE                             ; final_project_soc/synthesis/final_project_soc.debuginfo             ; --            ; --                ; --                ;
+; SLD_INFO                             ; QSYS_NAME final_project_soc HAS_SOPCINFO 1 GENERATION_ID 1430452410 ; --            ; final_project_soc ; --                ;
+; SOPCINFO_FILE                        ; final_project_soc/synthesis/../../final_project_soc.sopcinfo        ; --            ; --                ; --                ;
+; SYNTHESIS_ONLY_QIP                   ; On                                                                  ; --            ; --                ; --                ;
++--------------------------------------+---------------------------------------------------------------------+---------------+-------------------+-------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------+
+; Flow Elapsed Time                                                                                                        ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Analysis & Synthesis ; 00:03:07     ; 1.0                     ; 807 MB              ; 00:02:25                           ;
+; Total                ; 00:03:07     ; --                      ; --                  ; 00:02:25                           ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+
+
++-----------------------------------------------------------------------------------+
+; Flow OS Summary                                                                   ;
++----------------------+------------------+-----------+------------+----------------+
+; Module Name          ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
++----------------------+------------------+-----------+------------+----------------+
+; Analysis & Synthesis ; EdwardChou-PC    ; Windows 7 ; 6.1        ; x86_64         ;
++----------------------+------------------+-----------+------------+----------------+
+
+
+------------
+; Flow Log ;
+------------
+quartus_map --read_settings_files=on --write_settings_files=off final_project -c final_project
+
+
+

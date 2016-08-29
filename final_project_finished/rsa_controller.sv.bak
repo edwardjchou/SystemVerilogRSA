@@ -1,0 +1,109 @@
+
+module rsa_controller(input reset_n, compute
+								);
+
+enum logic [1:0] {RESET, WAIT,
+						GETPRIME_1, PRIMECHECK_1, GETPRIME2, PRIMECHECK2
+						GEN_N, GEN_PHI, GET_E, PRIMECHECK_E, LESSCHECK_E,
+						GEN_D, GETPLAINTXT, ENCRYPT, GETCIPHERTXT, DECRYPT} state, next_state;
+
+	always_ff @ (posedge clk, negedge reset_n) begin
+		if (reset_n == 1'b0) begin
+			state <= WAIT;
+		end 
+		else begin
+			state <= next_state;
+		end
+	end
+
+	always_comb begin
+		next_state = state;
+		unique case (state)
+			RESET: begin
+				next_state = WAIT;
+			end
+			WAIT: begin
+				if(compute == 1'b1)
+					next_state = GETPRIME_1;
+				else if(compute == 1'b0)
+					next_state = WAIT;
+			end
+			GETPRIME_1: begin
+				if (io_ready)
+					next_state = PRIMECHECK_1;
+			end
+			PRIMECHECK_1: begin
+				if(prime_ready == 1'b0)
+					next_state = PRIMECHECK_1;
+				else if(prime_ready == 1'b1)
+					begin
+						if(primecheck1 == 1'b1)
+							next_state = GETPRIME_2;
+						else if(prime_)
+					end
+			end
+			GETPRIME2: begin
+			end
+			PRIMECHECK2: begin
+			end
+			GEN_N: begin
+			end 
+			GEN_PHI: begin
+			end
+			GET_E: begin
+			end
+			PRIMECHECK_E: begin
+			end
+			LESSCHECK_E: begin
+			end
+			GEN_D: begin
+			end
+			GETPLAINTEXT: begin
+			end
+			ENCRYPT: begin
+			end 
+			GETCIPHERTEXT: begin
+			end
+			DECRYPT: begin
+			end
+		endcase
+	end
+		
+	always_comb begin
+		next_state = state;
+		unique case (state)
+			RESET: begin
+			end
+			WAIT: begin
+			end
+			GETPRIME_1: begin
+			end
+			PRIMECHECK_1: begin
+			end
+			GETPRIME2: begin
+			end
+			PRIMECHECK2: begin
+			end
+			GEN_N: begin
+			end 
+			GEN_PHI: begin
+			end
+			GET_E: begin
+			end
+			PRIMECHECK_E: begin
+			end
+			LESSCHECK_E: begin
+			end
+			GEN_D: begin
+			end
+			GETPLAINTEXT: begin
+			end
+			ENCRYPT: begin
+			end 
+			GETCIPHERTEXT: begin
+			end
+			DECRYPT: begin
+			end
+		endcase
+	end
+										

@@ -1,0 +1,40 @@
+module multiplier_sm (input clk, reset_n, mult_ready
+							input [31:0] in1,in2,
+							output logic mult_done,
+						 output logic [31:0] out);
+		
+
+		logic [31:0] counter;
+		
+		enum logic [2:0] {	RESET, WAIT, MULTIPLY_LOOP, MULTIPLY_DONE
+							}
+							state, next_state;
+	
+		always_ff @ (posedge clk, negedge reset_n) begin
+			if (reset_n == 1'b0) begin
+				state = RESET;
+			end 
+			else begin
+				state = next_state;
+			end
+		end
+		
+		always_comb begin
+		next_state = state;
+		unique case (state)
+			RESET: begin
+				next_state = WAIT;
+			end
+			
+			WAIT: begin
+				if (mult_ready == 1'b1)
+					next_state = MULTIPLY_LOOP;
+			end
+			
+			MULTIPLY_LOOP: begin
+				next_state = MODEXP_LOOP;
+			end
+		endcase
+	assign out = in1 * in2;
+
+endmodule	

@@ -1,0 +1,75 @@
+module rsa_encrypt(input Clk, reset_n, compute,
+						input [15:0] M, e, n,
+						output[15:0] C);
+						
+						
+	
+	enum logic [2:0] {	RESET, WAIT, MOD_EXP_LOOP
+							}
+							state, next_state;
+						
+	logic [15:0] counter;
+	
+	logic [15:0] Cout, Cin;
+	modular_exponentiation me0(.base(Cin), .power(M), .denominator(n), .result(Cout));
+ 	
+	always_ff @ (posedge clk, negedge reset_n) begin
+		if (reset_n == 1'b0) begin
+			state <= RESET;
+			counter = 16'd0;
+		end 
+		else begin
+			state <= next_state;
+			if (state == MOD_EXP_LOOP)
+				counter <= counter + 1'b1;
+		end
+	end
+
+	always_comb begin
+		next_state = state;
+		unique case (state)
+			RESET: begin
+				next_state = WAIT;
+			end
+			
+			WAIT: begin
+				if (compute == 1'b1)
+					next_state = ENCRYPT;
+			end
+			
+			MOD_EXP_LOOP: begin
+				if(counter == e)
+					next_state = MODULAR;
+				else if(counter < e)
+					next_state = MOD_EXP_LOOP;
+			end
+			
+			MODULAR: begin
+				next_state = FINISHED;
+			end
+			
+			FINISHED: begin
+			end
+			
+	always_latch begin
+		unique case (state)
+			RESET: begin
+				Cin = 16'd1;
+				Cout = 16'd1;
+			end
+			
+			WAIT: begin
+			end
+			
+			MOD_EXP_LOOP: begin
+					Cin = Cout;
+			end
+			
+			MODULAR: begin
+			end
+			
+			FINISHED: begin
+			end
+	end
+
+endmodule

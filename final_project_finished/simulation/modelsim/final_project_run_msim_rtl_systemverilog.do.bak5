@@ -1,0 +1,21 @@
+transcript on
+if {[file exists rtl_work]} {
+	vdel -lib rtl_work -all
+}
+vlib rtl_work
+vmap work rtl_work
+
+vlog -sv -work work +incdir+C:/Users/xli113/workspace/final_project_hwencrypt/final_project {C:/Users/xli113/workspace/final_project_hwencrypt/final_project/modular_exponentiation.sv}
+vlog -sv -work work +incdir+C:/Users/xli113/workspace/final_project_hwencrypt/final_project {C:/Users/xli113/workspace/final_project_hwencrypt/final_project/rsa_encrypt.sv}
+vlog -sv -work work +incdir+C:/Users/xli113/workspace/final_project_hwencrypt/final_project {C:/Users/xli113/workspace/final_project_hwencrypt/final_project/modular.sv}
+vlib final_project_soc
+vmap final_project_soc final_project_soc
+
+vlog -sv -work work +incdir+C:/Users/xli113/workspace/final_project_hwencrypt/final_project {C:/Users/xli113/workspace/final_project_hwencrypt/final_project/testbench_rsa.sv}
+
+vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -L final_project_soc -voptargs="+acc"  testbench_rsa
+
+add wave *
+view structure
+view signals
+run 10000 ns

@@ -1,0 +1,7 @@
+module modular( //input clk,
+					input [15:0] numerator, denominator,
+					output [15:0] result);
+										
+	assign result = numerator % denominator;										
+
+endmodule 

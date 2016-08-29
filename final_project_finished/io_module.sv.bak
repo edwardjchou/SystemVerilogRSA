@@ -1,0 +1,222 @@
+module io_module (		input			 		clk,
+						input			 		reset_n,
+						output logic [2:0]  	to_sw_sig,
+						output logic [15:0]  	to_sw_port,
+						input [2:0]  			to_hw_sig,
+						input [15:0]  			to_hw_port,
+						output logic [15:0] 	prime1,
+						output logic [15:0] 	prime2,
+						output logic [15:0] 	public_key,
+						output logic [15:0] 	plaintext,
+						input [15:0] 			ciphertext,
+						output					io_ready,
+						input					rsa_ready
+						);
+						
+		enum logic [6:0] {	RESET, WAIT,
+							READ_PRM1,
+							ACK_PRM1, 
+							READ_PRM2,
+							ACK_PRM2,
+							READ_E,
+							ACK_E,
+							READ_PLAINTEXT,
+							ACK_PLAINTEXT,
+							SEND_TO_RSA, GET_FROM_RSA,
+							SEND_BACK_CIPHERTEXT,
+							GOT_ACK_CIPHERTEXT}
+							state, next_state;
+						
+	always @ (posedge clk, negedge reset_n) begin
+			if (reset_n == 1'b0) begin
+				state <= RESET;
+				prime1 <= 16'd0;
+				prime2 <= 16'd0;
+				public_key <= 16'd0;
+				plaintext <= 16'd0;
+				to_sw_port <= 8'd0;
+			end 
+			else 
+			begin
+				state <= next_state;
+				case (state)
+					READ_PRM1: begin
+						prime1[15:0] <= to_hw_port[15:0];
+					end
+					
+					//READ_PRM2
+					READ_PRM2: begin
+						prime2[15:0] <= to_hw_port[15:0];
+					end
+					
+					//READ_PUBLIC_KEY
+					READ_E: begin
+						public_key[15:0]<= to_hw_port[15:0];
+					end
+
+					//READ_PLAINTEXT
+					READ_PLAINTEXT: begin
+						plaintext[15:0]<= to_hw_port[15:0];
+					end
+					
+					//SEND_BACK
+					SEND_BACK_CIPHERTEXT: begin
+						to_sw_port[15:0] <= ciphertext[15:0];
+					end
+					
+				endcase
+			end
+		end
+		
+		always_comb begin
+			next_state = state;
+			unique case (state)
+				RESET: begin
+					next_state = WAIT;
+				end
+				
+				WAIT: begin
+					if (to_hw_sig == 3'd1)
+						next_state = READ_PRM1;
+					else if (to_hw_sig == 3'd2)
+						next_state = READ_PRM2;
+					else if (to_hw_sig == 3'd3)
+						next_state = READ_E;
+					else if (to_hw_sig == 3'd4)
+						next_state = READ_PLAINTEXT;
+					else if (to_hw_sig == 3'd5)
+						next_state = SEND_TO_RSA;
+				end
+				
+				//READ_PRM1
+				READ_PRM1: begin
+					if (to_hw_sig == 3'd1)//if to_hw_sig is 1, go to acknowledge
+						next_state = ACK_PRM1;
+				end			
+				ACK_PRM1: begin
+					if (to_hw_sig == 3'd0)// if to_hw_sig is 0, go back to wait state
+						next_state = WAIT;
+				end
+
+				//READ_PRM2
+				READ_PRM2: begin
+					if (to_hw_sig == 3'd1)//if to_hw_sig is 1, go to acknowledge
+						next_state = ACK_PRM2;
+				end			
+				ACK_PRM2: begin
+					if (to_hw_sig == 3'd0)// if to_hw_sig is 0, go back to wait state
+						next_state = WAIT;
+				end
+				
+				//READ_E
+				READ_E: begin
+					if (to_hw_sig == 3'd1)//if to_hw_sig is 1, go to acknowledge
+						next_state = ACK_E;
+				end			
+				ACK_E: begin
+					if (to_hw_sig == 3'd0)// if to_hw_sig is 0, go back to wait state
+						next_state = WAIT;
+				end
+				
+				//READ_PLAINTEXT
+				READ_E: begin
+					if (to_hw_sig == 3'd1)//if to_hw_sig is 1, go to acknowledge
+						next_state = ACK_PLAINTEXT;
+				end			
+				ACK_PLAINTEXT: begin
+					if (to_hw_sig == 3'd0)// if to_hw_sig is 0, go back to wait state
+						next_state = WAIT;
+				end
+				
+				//SEND_BACK_STATE_LOOP
+				SEND_TO_RSA: begin
+					if (rsa_ready == 1'd1)
+						next_state = GET_FROM_RSA;
+				end
+				GET_FROM_RSA: begin
+					if (to_hw_sig == 3'd1) 
+						next_state = SEND_BACK_CIPHERTEXT;
+				end
+				SEND_BACK_CIPHERTEXT: begin
+					if (to_hw_sig == 3'd2)
+						next_state = GOT_ACK_CIPHERTEXT;
+				end
+				GOT_ACK_CIPHERTEXT: begin
+					if (to_hw_sig == 3'd1)
+						next_state = WAIT;
+				end
+							
+			endcase
+		end						
+						
+		always_comb begin
+			to_sw_sig = 3'd0;
+			io_ready = 1'b0;
+			unique case (state)
+				RESET: begin
+					to_sw_sig = 3'd3;
+				end
+			
+				WAIT: begin
+					to_sw_sig = 3'd0;
+				end
+				
+				//READ_PRM1_OUTPUT_LOOP
+				READ_PRM1: begin
+					to_sw_sig = 3'd1;
+				end		
+				ACK_PRM1: begin
+					to_sw_sig = 3'd0;
+				end
+				
+				//READ_PRM2_OUTPUT_LOOP
+				READ_PRM2: begin
+					to_sw_sig = 3'd1;
+				end		
+				ACK_PRM2: begin
+					to_sw_sig = 3'd0;
+				end
+
+				//READ_E_OUTPUT_LOOP
+				READ_E: begin
+					to_sw_sig = 3'd1;
+				end		
+				ACK_E: begin
+					to_sw_sig = 3'd0;
+				end
+				
+				//READ_PLAINTEXT_OUTPUT_LOOP
+				READ_PLAINTEXT: begin
+					to_sw_sig = 3'd1;
+				end		
+				ACK_PLAINTEXT: begin
+					to_sw_sig = 3'd0;
+				end
+
+				
+				//SEND_BACK_OUTPUT_LOOP
+				SEND_TO_RSA: begin
+					to_sw_sig = 3'd3;
+					io_ready = 1'b1;
+				end
+				
+				GET_FROM_RSA: begin
+					to_sw_sig = 3'd2;
+					io_ready = 1'b0;
+				end
+				SEND_BACK_CIPHERTEXT: begin
+					to_sw_sig = 3'd1;
+				end
+				
+				GOT_ACK_CIPHERTEXT: begin
+					to_sw_sig = 3'd0;
+				end
+		
+			endcase
+		end						
+						
+						
+						
+						
+											
+endmodule

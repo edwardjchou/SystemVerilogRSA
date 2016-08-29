@@ -1,0 +1,7 @@
+module modular_exponentiation(//input clk,
+										input [15:0] M, Cin, e, n,
+										output [15:0] Cout);
+										
+	assign Cout = (Cin * M) % n;										
+
+endmodule 

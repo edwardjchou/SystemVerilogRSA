@@ -1,0 +1,96 @@
+# Reading C:/altera/14.0/modelsim_ase/tcl/vsim/pref.tcl 
+# ERROR: No extended dataflow license exists
+# do final_project_run_msim_rtl_systemverilog.do 
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Copying C:\altera\14.0\modelsim_ase\win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# ** Warning: Copied C:\altera\14.0\modelsim_ase\win32aloem/../modelsim.ini to modelsim.ini.
+#          Updated modelsim.ini.
+# 
+# vlog -sv -work work +incdir+C:/Users/ejchou2/workspace/final_project_501v4/final_project {C:/Users/ejchou2/workspace/final_project_501v4/final_project/multiplier_sm.sv}
+# Model Technology ModelSim ALTERA vlog 10.1e Compiler 2013.06 Jun 12 2013
+# -- Compiling module multiplier_sm
+# 
+# Top level modules:
+# 	multiplier_sm
+# vlog -sv -work work +incdir+C:/Users/ejchou2/workspace/final_project_501v4/final_project {C:/Users/ejchou2/workspace/final_project_501v4/final_project/modular.sv}
+# Model Technology ModelSim ALTERA vlog 10.1e Compiler 2013.06 Jun 12 2013
+# -- Compiling module modular
+# 
+# Top level modules:
+# 	modular
+# vlog -sv -work work +incdir+C:/Users/ejchou2/workspace/final_project_501v4/final_project {C:/Users/ejchou2/workspace/final_project_501v4/final_project/generate_d.sv}
+# Model Technology ModelSim ALTERA vlog 10.1e Compiler 2013.06 Jun 12 2013
+# -- Compiling module generate_d
+# 
+# Top level modules:
+# 	generate_d
+# vlog -sv -work work +incdir+C:/Users/ejchou2/workspace/final_project_501v4/final_project {C:/Users/ejchou2/workspace/final_project_501v4/final_project/modular_multiplication.sv}
+# Model Technology ModelSim ALTERA vlog 10.1e Compiler 2013.06 Jun 12 2013
+# -- Compiling module modular_multiplication
+# 
+# Top level modules:
+# 	modular_multiplication
+# vlib final_project_soc
+# ** Warning: (vlib-34) Library already exists at "final_project_soc".
+# 
+# vmap final_project_soc final_project_soc
+# Modifying modelsim.ini
+# 
+# vlog -sv -work work +incdir+C:/Users/ejchou2/workspace/final_project_501v4/final_project {C:/Users/ejchou2/workspace/final_project_501v4/final_project/testbench_gend.sv}
+# Model Technology ModelSim ALTERA vlog 10.1e Compiler 2013.06 Jun 12 2013
+# -- Compiling module testbench_gend
+# 
+# Top level modules:
+# 	testbench_gend
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -L final_project_soc -voptargs="+acc"  testbench_gend
+# vsim -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -L final_project_soc -voptargs=\"+acc\" -t 1ps testbench_gend 
+# Loading sv_std.std
+# Loading work.testbench_gend
+# Loading work.generate_d
+# Loading work.modular_multiplication
+# Loading work.modular
+# Loading work.multiplier_sm
+# 
+# add wave *
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: ejchou2  Hostname: ECEB-3022-11  ProcessID: 1472
+# 
+#           Attempting to use alternate WLF file "./wlftxbvzqv".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlftxbvzqv
+# 
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run 10000 ns
+# ** Warning: (vsim-8315) C:/Users/ejchou2/workspace/final_project_501v4/final_project/generate_d.sv(42): No condition is true in the unique/priority if/case statement.
+# 
+restart
+# Loading sv_std.std
+# Loading work.testbench_gend
+# Loading work.generate_d
+# Loading work.modular_multiplication
+# Loading work.modular
+# Loading work.multiplier_sm
+run 1000000ns
+# ** Warning: (vsim-8315) C:/Users/ejchou2/workspace/final_project_501v4/final_project/generate_d.sv(42): No condition is true in the unique/priority if/case statement.
+# 
+restart
+# Loading sv_std.std
+# Loading work.testbench_gend
+# Loading work.generate_d
+# Loading work.modular_multiplication
+# Loading work.modular
+# Loading work.multiplier_sm
+run 100000000ns
+# ** Warning: (vsim-8315) C:/Users/ejchou2/workspace/final_project_501v4/final_project/generate_d.sv(42): No condition is true in the unique/priority if/case statement.
+# 

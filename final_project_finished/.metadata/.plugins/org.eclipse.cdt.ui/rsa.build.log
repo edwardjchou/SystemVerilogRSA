@@ -1,0 +1,10 @@
+
+**** Build of configuration Nios II for project rsa ****
+
+make all 
+Info: Building ../rsa_bsp/
+make --no-print-directory -C ../rsa_bsp/
+[BSP build complete]
+[rsa build complete]
+
+**** Build Finished ****

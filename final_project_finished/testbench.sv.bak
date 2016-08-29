@@ -1,0 +1,29 @@
+module testbench();
+
+timeunit 10ns;
+
+timeprecision 1ns;
+
+logic clk =0;
+logic [10:0]i;
+
+prime_checker prime(.i(i)); 
+
+always begin : CLOK_GENERATION
+#1 clk = ~clk;
+
+end
+
+
+initial begin: TEST_VECTORS
+#10 i = 11'b00000101001;
+#10 i = 11'b00000101111;
+#10 i = 11'b00001100101;
+#10 i = 11'b00110011001;
+#10 i = 11'b00110011000;
+#10 i = 11'd23;
+#10 i = 11'd26;
+end
+endmodule
+
+

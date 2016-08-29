@@ -1,0 +1,98 @@
+#include <stdio.h>
+
+//#include <io.h>
+
+#include <string.h>
+
+#include <stdlib.h>
+
+#include <fcntl.h>
+#include <time.h>
+
+
+#define to_hw_port (volatile int*) 0x00000050 // actual address here
+#define to_hw_sig (volatile int*) 0x00000040 // actual address here
+#define to_sw_port (int*) 0x00000030 // actual address here
+#define to_sw_sig (int*) 0x00000020 // actual address here
+
+int main(void){
+    // Start with pressing reset
+	*to_hw_sig = 0;
+	*to_hw_port = 0;
+	printf("Press reset!\n");
+	while (*to_sw_sig != 3);
+
+
+	while (1)
+	{
+	int p1, p2, pk, pt, ct; //prime1, prime2, public key, plaintext, ciphertext.
+	printf("RSA Hardware Encryption\n");
+	//*to_hw_sig = 0;
+	//*to_hw_port = 0;
+	//printf("Please press reset!\n");
+	//while(*to_sw_sig != 3);
+	//*to_hw_sig = 0;
+	printf("Please enter the first prime number\n");
+	scanf("%d", &p1); //get the first prime number
+
+	printf("transmitting the first prime number....\n");
+	//transmitting the first prime number
+	*to_hw_sig = 1;
+	*to_hw_port = p1;
+	while (*to_sw_sig != 1);
+	//printf("debug");
+	*to_hw_sig = 0;
+	while (*to_sw_sig != 0);
+	*to_hw_sig = 1;
+
+
+	printf("Please enter the second prime number\n");
+	scanf("%d", &p2); //get the second prime number
+
+	//transmitting the second prime number
+	*to_hw_sig = 2;
+	*to_hw_port = p2;
+	while (*to_sw_sig != 1);
+	//printf("debug");
+	*to_hw_sig = 0;
+	while (*to_sw_sig != 0);
+	//printf("debug");
+	*to_hw_sig = 1;
+
+	printf("Please enter the public key\n");
+	scanf("%d", &pk); //get the public key
+
+	//transmitting the public key
+	*to_hw_sig = 3;
+	*to_hw_port = pk;
+	while (*to_sw_sig != 1);
+	*to_hw_sig = 0;
+	while (*to_sw_sig != 0);
+	*to_hw_sig = 1;
+
+	printf("Please enter the plain text\n");
+	scanf("%d", &pt); //get the plain text
+
+	//transmitting the plain text
+	*to_hw_sig = 4;
+	*to_hw_port = pt;
+	while (*to_sw_sig != 1);
+	*to_hw_sig = 0;
+	while (*to_sw_sig != 0);
+	*to_hw_sig = 1;
+	
+	
+	*to_hw_sig = 5; //tell hw to encrypt, go to the state SEND_TO_RSA
+	while(*to_sw_sig != 2); // wait decryption to complete (GET_FROM_RSA)
+	printf("Retrieving Ciphertext\n");
+	*to_hw_sig = 1; //GO TO SEND_BACK_CIPHERTEXT
+	while(*to_sw_sig != 1);
+	ct = *to_sw_port;
+	*to_hw_port = 2; //GO TO GOT_ACK_CIPHERTEXT
+	while(to_sw_sig != 0);
+	*to_hw_sig = 1; // go back to wait state
+	printf("The encrypted message is %d\n",ct);
+	}
+	return 0;
+
+}
